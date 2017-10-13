@@ -1,0 +1,6 @@
+.treegrid-indent {display: inline-block; position: relative;} /*width:16px; height: 16px;*/
+
+.treegrid-expander { display: inline-block; position: relative; cursor: pointer; margin-top: 10px;} /*width:16px; height: 16px;*/
+
+.treegrid-expander-expanded{background-image: url(../img/collapse.png); }
+.treegrid-expander-collapsed{background-image: url(../img/expand.png);}

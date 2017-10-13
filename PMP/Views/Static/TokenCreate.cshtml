@@ -1,0 +1,267 @@
+﻿
+<style>
+        .typeahead-section .custom-popup-wrapper {
+            position: absolute;
+            top: 79%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            background-color: #f9f9f9;
+            width:100%;
+            border:1px solid #dddddd;
+            border-radius: 2px;
+        }
+
+        .typeahead-section .custom-popup-wrapper > .message {
+            padding: 10px 20px;
+            border-bottom: 1px solid #ddd;
+            color: #868686;
+        }
+
+        .typeahead-section .custom-popup-wrapper > .dropdown-menu {
+            position: static;
+            float: none;
+            display: block;
+            min-width: 100%;
+            background-color: transparent;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        .tooltip-f {
+            position: relative;
+            display: inline-block;
+        /*border-bottom: 1px dotted black;*/
+        }
+
+        .tooltip-f .tooltiptext {
+            /* visibility: hidden;*/
+            width: 150px;
+            background-color: #efdada;
+            font-size: 10px;
+            color: #ce1818;
+            text-align: center;
+            border-radius: 2px;
+            padding: 5px 0;
+            margin-top: 2.3px;
+            margin-left: 150px;
+            /* Position the tooltip */
+            position: absolute;
+            z-index: 1;
+        }
+
+        .tooltip-f:hover .tooltiptext {
+            visibility: visible;
+        }
+
+        .tooltip-f .tooltiptext::after {
+            content: " ";
+            position: absolute;
+            bottom: 90%;  /* At the top of the tooltip */
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent transparent #efdada transparent;
+        }
+
+        .error-r{
+            padding-right: 40px;
+        }
+
+        .success-a{
+            padding-right: 40px;
+        }
+
+
+</style>
+
+<div class="col-lg-12">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="main-box clearfix">
+                <header class="main-box-header clearfix">
+                    <h2 class="pull-left">Create Token</h2>
+                </header>
+                <div class="main-box-body clearfix">
+                   
+                    <form name="TokenCreate" ng-submit="SubmitToken()">
+
+                        <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="col-md-8">
+
+                                <div class="form-group col-md-6 tooltip-f">
+                                    <label>Client Name</label>
+                                    <select class="form-control" name="Client" required ng-change="GetContactPersonInfo(TokenModel.ClientID)" ng-model="TokenModel.ClientID">
+                                        <option value="" selected="selected">------------------ Select Client ------------------</option>
+                                        <option ng-repeat="Client in ClientData" ng-value="Client.ClientID">
+                                            {{Client.ClientName}}
+                                        </option>
+                                    </select>
+                                    <span ng-show="TokenCreate.Client.$dirty && TokenCreate.Client.$error.required" class="glyphicon glyphicon-remove form-control-feedback error-r"></span>
+                                    <span class="tooltiptext" ng-show="TokenCreate.Client.$dirty && TokenCreate.Client.$error.required">This Field is Required</span>
+                                    <span ng-show="!TokenCreate.Client.$error.required" class="glyphicon glyphicon-ok form-control-feedback success-a"></span>
+                                </div>
+
+                                <div class="form-group col-md-6 typeahead-section tooltip-f">
+                                    <label>Contact Person</label>
+                                    <input type="text" name="ContactPerson" ng-change="CheckAvailable()" typeahead-editable="false" uib-typeahead="Contact as Contact.ContactPersonName for Contact in ContactDetails | filter:{ContactPersonName:$viewValue}" typeahead-template-url="customTemplate.html" typeahead-popup-template-url="customPopupTemplate.html" ng-model="ContactPerson" typeahead-show-hint="true" placeholder="Contact Persons" ng-required="true" class="form-control">
+                                    <span ng-show="TokenCreate.ContactPerson.$dirty && TokenCreate.ContactPerson.$error.required" class="glyphicon glyphicon-remove form-control-feedback error-r "></span>
+                                    <span class="tooltiptext" ng-show="TokenCreate.ContactPerson.$dirty && TokenCreate.ContactPerson.$error.required">This Field is Required</span>
+                                    <span ng-show="!TokenCreate.ContactPerson.$error.required" class="glyphicon glyphicon-ok form-control-feedback success-a"></span>
+                                </div>
+
+                              
+
+                                <div class="form-group col-md-6 tooltip-f">
+                                    <label>Channel</label>
+                                    <select class="form-control" required name="Channel" ng-model="TokenModel.ChannelID">
+                                        <option value="" selected="selected">------------------ Select Channel ------------------</option>
+                                        <option ng-repeat="Channel in ChannelData" ng-value="Channel.ChannelID">{{Channel.ChannelName}}</option>
+                                    </select>
+                                    <span ng-show="TokenCreate.Channel.$dirty && TokenCreate.Channel.$error.required" class="glyphicon glyphicon-remove form-control-feedback error-r "></span>
+                                    <span class="tooltiptext" ng-show="TokenCreate.Channel.$dirty && TokenCreate.Channel.$error.required">This Field is Required</span>
+                                    <span ng-show="!TokenCreate.Channel.$error.required" class="glyphicon glyphicon-ok form-control-feedback success-a"></span>
+                                </div>
+
+                               
+
+                                <div class="form-group col-md-6 tooltip-f">
+                                    <label>Enquiry Type</label>
+                                    <select class="form-control" required name="Inquiry" ng-model="TokenModel.InquiryTypeID">
+                                        <option value="" selected="selected">------------------ Select Entity ------------------</option>
+                                        <option ng-repeat="Enquiry in EnquiryData" ng-value="Enquiry.InquiryTypeID">{{Enquiry.InquiryTypeDesc}}</option>
+                                    </select>
+                                    <span ng-show="TokenCreate.Inquiry.$dirty && TokenCreate.Inquiry.$error.required" class="glyphicon glyphicon-remove form-control-feedback error-r "></span>
+                                    <span class="tooltiptext" ng-show="TokenCreate.Inquiry.$dirty && TokenCreate.Inquiry.$error.required">This Field is Required</span>
+                                    <span ng-show="!TokenCreate.Inquiry.$error.required" class="glyphicon glyphicon-ok form-control-feedback success-a"></span>
+                                </div>
+
+                                <div class="form-group col-md-6 tooltip-f">
+                                    <label>Objective</label>
+                                    <textarea class="form-control textarea" required name="Objective" id="exampleTextarea" rows="2" ng-model="TokenModel.Objective"></textarea>
+                                    <span ng-show="TokenCreate.Objective.$dirty && TokenCreate.Objective.$error.required" class="glyphicon glyphicon-remove form-control-feedback error-r "></span>
+                                    <span class="tooltiptext" ng-show="TokenCreate.Objective.$dirty && TokenCreate.Objective.$error.required">This Field is Required</span>
+                                    <span ng-show="!TokenCreate.Objective.$error.required" class="glyphicon glyphicon-ok form-control-feedback success-a"></span>
+                                </div>
+
+                                <div class="form-group col-md-6 tooltip-f">
+                                    <label>Target Audience</label>
+                                    <textarea class="form-control textarea" required name="TargetAudience" id="Textarea1" rows="2" ng-model="TokenModel.TargetAudience"></textarea>
+                                    <span ng-show="TokenCreate.TargetAudience.$dirty && TokenCreate.TargetAudience.$error.required" class="glyphicon glyphicon-remove form-control-feedback error-r "></span>
+                                    <span class="tooltiptext" ng-show="TokenCreate.TargetAudience.$dirty && TokenCreate.TargetAudience.$error.required">This Field is Required</span>
+                                    <span ng-show="!TokenCreate.TargetAudience.$error.required" class="glyphicon glyphicon-ok form-control-feedback success-a"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-4">
+
+                                <div class="form-group col-md-12 tooltip-f">
+                                    <label>Contact Date</label>
+                                    <input type="text" class="form-control" placeholder="Select Date" name="ContactDate"
+                                           custom-date-picker field='ContactDate' required ng-required="true" ng-model="TokenModel.ContactDate" ng-value="TokenModel.ContactDateFormat" />
+
+                                    <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
+                                    <span ng-show="TokenCreate.ContactDate.$dirty && TokenCreate.ContactDate.$error.required" class="glyphicon glyphicon-remove form-control-feedback error-r"></span>
+                                    <span class="tooltiptext" ng-show="TokenCreate.ContactDate.$dirty && TokenCreate.ContactDate.$error.required">This Field is Required</span>
+                                    <span ng-show="!TokenCreate.ContactDate.$error.required" class="glyphicon glyphicon-ok form-control-feedback success-a"></span>
+                                    @*<i style="position:absolute; bottom: 6px; right:50px; z-index:99; cursor:pointer;" class="fa fa-calendar"></i>*@
+                                </div>
+
+                                <div class="form-group col-md-12 tooltip-f">
+                                    <label>Source</label>
+                                    <select class="form-control" required name="Source" ng-model="TokenModel.SourceID" ng-change="SetReferenceFlag()">
+                                        <option value="" selected="selected">------------------ Select Source ------------------</option>
+                                        <option ng-repeat="Source in SourceData" ng-value="Source.SourceID">{{Source.SourceDesc}}</option>
+                                    </select>
+                                    <span ng-show="TokenCreate.Source.$dirty && TokenCreate.Source.$error.required" class="glyphicon glyphicon-remove form-control-feedback error-r "></span>
+                                    <span class="tooltiptext" ng-show="TokenCreate.Source.$dirty && TokenCreate.Source.$error.required">This Field is Required</span>
+                                    <span ng-show="!TokenCreate.Source.$error.required" class="glyphicon glyphicon-ok form-control-feedback success-a"></span>
+                                </div>
+
+                                <div class="form-group col-md-12 tooltip-f" ng-if="ReferenceFlag">
+                                    <label>Reference</label>
+                                    <textarea class="form-control textarea" ng-required="true" name="ReferenceName" id="Textarea1" rows="2" ng-model="TokenModel.ReferenceName"></textarea>
+                                    <span ng-show="TokenCreate.ReferenceName.$dirty && TokenCreate.ReferenceName.$error.required" class="glyphicon glyphicon-remove form-control-feedback error-r "></span>
+                                    <span class="tooltiptext" ng-show="TokenCreate.ReferenceName.$dirty && TokenCreate.ReferenceName.$error.required">This Field is Required</span>
+                                    <span ng-show="!TokenCreate.ReferenceName.$error.required" class="glyphicon glyphicon-ok form-control-feedback success-a"></span>
+                                </div>
+
+                            </div>
+
+                                <div style="clear:both; height:10px;"></div>
+
+                                <div class="form-group">
+                                    <div class="btn-block-d">
+                                        <button type="button" ng-show="ShowUpdate" ng-click="UpdateTokenInfo()" ng-disabled="TokenCreate.$invalid" class="btn btn-primary"> Update </button>
+                                        <button type="submit" ng-show="ShowCreate" class="btn btn-primary" ng-disabled="TokenCreate.$invalid" value="submit"> Create </button>
+                                        <button type="button" ng-click="ResetForm()" class="btn btn-primary"> Reset </button>
+                                        @*<button type="button" ng-click="BackToList()" class="btn btn-success"> Back </button>*@
+
+                                    </div>
+                                </div>
+
+                            </div></div>
+
+                    </form>
+
+                
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<custom-task-assignment on-task-add="AddTaskRow()" on-employee-add="AddEmployee()" on-save="SaveTask()"></custom-task-assignment>*@
+    <custom-task-assignment  on-save="SaveTask(TaskModel,EmployeeContribution)"></custom-task-assignment>
+
+    @*<div class="row" ng-show="TaskCreationStatus" custom-task-assignment>
+
+    </div>*@
+
+</div>
+
+    
+
+<script type="text/ng-template" id="customPopupTemplate.html">
+    <div class="custom-popup-wrapper"
+         ng-style="{top: position().top+'px', left: position().left+'px'}"
+         style="display: block;"
+         ng-show="isOpen() && !moveInProgress"
+         aria-hidden="{{!isOpen()}}">
+        <p class="message">Select Contact Person . . .</p>
+
+        <ul class="dropdown-menu" role="listbox">
+            <li class="uib-typeahead-match" ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }"
+                ng-mouseenter="selectActive($index)" ng-click="selectMatch($index)" role="option" id="{{::match.id}}">
+                <div uib-typeahead-match index="$index" match="match" query="query" template-url="templateUrl"></div>
+            </li>
+        </ul>
+    </div>
+</script>
+
+<script type="text/ng-template" id="customTemplate.html">
+    <a>
+        <img ng-src="http://upload.wikimedia.org/wikipedia/commons/thumb/{{match.model.flag}}" width="16">
+        <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
+    </a>
+</script>
+
+<script>
+    $(function ($) {
+        $('#datepickerDate').datepicker({
+            format: 'mm-dd-yyyy'
+        });
+    });
+</script>
+<script>
+    $(document).ready(function (e) {
+        //convert
+        //$("select").msDropdown({ roundedBorder: false });
+        //createByJson();
+        //$("#tech").data("dd");
+    });
+
+</script>

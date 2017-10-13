@@ -1,0 +1,225 @@
+﻿<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('.tree').treegrid();
+        $('.tree-2').treegrid({
+            expanderExpandedClass: 'glyphicon glyphicon-minus',
+            expanderCollapsedClass: 'glyphicon glyphicon-plus'
+        });
+
+    });
+</script>
+
+<script src="~/Scripts/bootstrap-slider.js"></script>
+<script>
+    $(document).ready(function () {
+
+        // With JQuery
+        $('#ex1').slider({
+            formatter: function (value) {
+                return 'Current value: ' + value;
+            }
+        });
+
+        $('#ex2').slider({
+            formatter: function (value) {
+                return 'Current value: ' + value;
+            }
+        });
+
+        $('#ex3').slider({
+            formatter: function (value) {
+                return 'Current value: ' + value;
+            }
+        });
+
+        // Without JQuery
+        //var slider = new Slider('#ex1', {
+        //    formatter: function (value) {
+        //        return 'Current value: ' + value;
+        //    }
+        //});
+
+
+    });
+</script>
+
+<div class="col-lg-12">
+
+    <div class="main-box clearfix">
+        <header class="main-box-header clearfix">
+            <h2>Create Task</h2>
+
+            <button class="btn btn-primary btn-sm pull-right" style="margin-right:1px" ng-click="Save({TaskModel:TaskList[TaskList.length-2],EmployeeContribution:TaskList[TaskList.length-1].Employees})"> <i class="fa fa-plus"></i> Save Task </button>
+            <button class="btn btn-primary btn-sm pull-right" style="margin-right:1px" ng-click="AddTaskRow()"> <i class="fa fa-plus"></i> Add Task </button>
+
+        </header>
+        <div class="main-box-body clearfix">
+
+            <table class="table">
+
+                <tr>
+                    <td>
+                        <table class="table tree-2">
+                            <thead>
+                                <tr>
+                                    <th> </th>
+                                    <th class="text-center">Task</th>
+                                    <th class="text-center">Priority</th>
+                                    <th class="text-center">Description</th>
+                                    <th class="text-center">Assign To</th>
+                                    <th class="text-center">Due Date</th>
+                                    <th class="text-center">Task Status</th>
+                                </tr>
+                            </thead>
+                        
+                            <tbody>
+                                <tr ng-repeat="TaskItem in TaskList track by $index" class="treegrid-{{$index+1}} {{TaskItem.IsEmployee?'treegrid-parent-' + $index : return}}">
+                                   <td >
+
+                                    </td>
+
+                                    <td ng-if-start="!TaskItem.IsEmployee">
+                                      <select class="form-control" name="Task" required  ng-model="TaskItem.TaskName">
+                                                <option value="" selected="selected">-------- Select Task ------</option>
+                                                <option ng-repeat="Task in TaskMaster" ng-value="Task.TaskName">
+                                                    {{Task.TaskName}}
+                                                </option>
+                                         </select>
+                                       </td>
+                                    <td>
+                                        <select class="form-control" name="Priority" required ng-model="TaskItem.TaskPriority">
+                                            <option value="" selected="selected">Select TaskPriority</option>
+                                            <option ng-repeat="TaskType in TaskPriority" ng-value="TaskAssignedModel.TaskPriorityID">
+                                                {{TaskType.PriorityDesc}}
+                                            </option>
+                                        </select>
+                                    </td>
+
+                                    <td>
+                                        <input type="text" class="form-control" ng-model="TaskItem.TaskDesc"/>
+                                    </td>
+                                    <td>
+                                        <div ng-dropdown-multiselect  options="Demo"  selected-model="SelectedEmployeeModel" events="TaskAllocatedEvent"  extra-settings="DataAction">
+                                          
+                                         </div>
+                                            @*<select class="form-control" name="Employee" required ng-model="TaskItem.AssignTo">
+                                                <option value="" selected="selected"></option>
+                                                <option ng-repeat="Emp in EmployeeDetails" ng-value="TaskAssignedModel.FirstName">
+                                                    {{Emp.FirstName}}
+                                                </option>
+                                            </select>*@
+                                       </td>
+                                    <td>
+                                        <input type="text" class="form-control" custom-date-picker placeholder="Select Due Date" field='ContactDate' ng-value="DueDate" ng-model="TaskItem.DueDate"/>
+                                        <span class="glyphicon glyphicon-calendar" ></span>
+                                    </td>
+                                    <td ng-if-end>
+                                        <select class="form-control" name="Status" required ng-model="TaskItem.Status">
+                                            <option value="" selected="selected">Select Status</option>
+                                            <option ng-repeat="Status in TaskStatus" ng-value="Status.CurrentStatusDesc">
+                                                {{Status.CurrentStatusDesc}}
+                                            </option>
+                                        </select>
+                                    </td>
+
+
+                                    <td ng-if="TaskItem.IsEmployee" colspan="100%">
+                                        <table class="table add-employee">
+                                            <tr>
+                                                <th colspan="4" class="text-left">
+                                                    Employees
+                                                    <button class="pull-right btn btn-primary btn-sm" ng-click="AddEmployee($index)"> <i class="fa fa-plus"></i> Add</button>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">Employee Code</td>
+                                                <td class="text-center">Hours</td>
+                                                <td class="text-center">Value %</td>
+                                                <td class="text-center">Note</td>
+                                            </tr>
+
+                                            <tr  ng-repeat="EmpContribution in TaskItem.Employees">
+                                                <td class="text-center">{{EmpContribution.EmployeeID}}</td>
+                                                <td>
+                                                    <input type="text" placeholder="Value" id="Text6" class="form-control" ng-model="EmpContribution.Hours"/>
+                                                </td>
+                                                <td>
+                                                    <div class="slide-v">
+                                                        <input type="text" placeholder="Value" id="Text3" class="form-control" ng-model="EmpContribution.Values"/>
+                                                    </div>
+                                                    <div class="slide-c">
+                                                        <input id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="14" />
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    <div>
+                                                        <input type="text" placeholder="Note" id="Text8" class="form-control" ng-model="EmpContribution.Notes"/>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                        </table>
+
+                                    </td>
+
+
+                                </tr>
+                                {{SelectedEmployeeModel.FirstName}}
+                                @*<tr class="treegrid-{{$index+2}} treegrid-parent-{{$index+1}}">
+                                    <td></td>
+                                    <td colspan="100%">
+                                        <table class="table add-employee">
+                                            <tr>
+                                                <th colspan="4" class="text-left">
+                                                    Employees
+                                                    <button class="pull-right btn btn-primary btn-sm" ng-click="AddEmployee()"> <i class="fa fa-plus"></i> Add</button>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">Employee Code</td>
+                                                <td class="text-center">Hours</td>
+                                                <td class="text-center">Value %</td>
+                                                <td class="text-center">Note</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="text-center"> SS0042 </td>
+                                                <td>
+                                                    <input type="text" placeholder="Value" id="Text6" class="form-control" />
+                                                </td>
+                                                <td>
+                                                    <div class="slide-v">
+                                                        <input type="text" placeholder="Value" id="Text3" class="form-control" />
+                                                    </div>
+                                                    <div class="slide-c">
+                                                        <input id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="14" />
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    <div>
+                                                        <input type="text" placeholder="Note" id="Text8" class="form-control" />
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                        </table>
+
+                                    </td>
+
+                                </tr>*@
+
+                            </tbody>
+
+                        </table>
+
+                    </td>
+
+                </tr>
+
+            </table>
+        </div>
+    </div>
+</div>

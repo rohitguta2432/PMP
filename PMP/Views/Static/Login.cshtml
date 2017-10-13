@@ -1,0 +1,75 @@
+﻿<div custom-login-image-height class="container" id="login-page">
+    <div class="row">
+        <div class="col-xs-12">
+            <div id="login-box">
+                <div id="login-box-holder">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <header id="login-header">
+                                <div id="login-logo">
+                                    <img src="~/Content/img/logo.png" alt="" />
+                                </div>
+                            </header>
+                            <div id="login-box-inner">
+                                <div class="alert alert-danger" ng-if="Error">
+                                    <span style="font-size:12px; font-weight:700;">{{Error. error_description}}</span>
+                                </div>
+                                <form role="form" ng-submit="Login()">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                        <input class="form-control" name="UserName" required type="text" placeholder="User Name" ng-model="UserName">
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                                        <input type="password" name="UserName" required class="form-control" placeholder="Password" ng-model="Password">
+                                    </div>
+                                    <div id="remember-me-wrapper">
+                                        <div class="row">
+                                            <div class="col-xs-6">
+                                                <div class="checkbox-nice">
+                                                    <input type="checkbox" id="remember-me" checked="checked" />
+                                                    <label for="remember-me">
+                                                        Keep me Sign in
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <a ui-sref="Recover" id="login-forget-link" class="col-xs-6"> Recover your Password?  </a>
+                                         </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <button type="submit" class="btn btn-success col-xs-12" >Login</button>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <p class="social-text">Or login with</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-6" style="text-align: right;">
+                                            <i class="fa"> <a href="#"> <img src="content/img/f-icon.png" /> </a> </i>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6">
+                                            <i class="fa"> <a href="#"> <img src="content/img/g-icon.png" /> </a> </i>                                           
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="login-box-footer">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            Do not have an account?
+                            <a ui-sref="Registration">Register now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

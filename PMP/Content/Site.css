@@ -1,0 +1,93 @@
+﻿/*body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}*/
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    /*max-width: 280px;*/
+}
+
+/* Set padding to display errors that occur during databinding */
+.padding-error {
+    padding-top: 20px;
+}
+
+@media only screen and (max-width: 767px) {
+    .nofloat {
+        float: none;
+        padding: 10px 15px;
+    }
+}
+
+.cursor-pointer {
+    cursor:pointer;
+}
+
+.content-body {
+    height: 565px;
+    overflow-y: auto;
+    opacity:1;
+}
+
+.success-a {color:#3c763d !important;}
+.error-r {color:#a94442 !important;}
+
+.form-success-alert {border:1px solid #3c763d !important;}
+.form-error-alert {border-color:#a94442 !important;}
+.extra-padding{
+    padding:5px !important;
+}
+
+[datatable="ng"] tr th{
+    cursor: pointer;
+}
+
+.dataTables_wrapper {
+    /* border: 1px solid #DDDDDD; */
+    padding: 0 0 !important;
+}
+
+.main-box-header .btn {
+    box-shadow: none;
+}
+
+.main-box-header .btn:focus {
+    outline: none;        
+}
+.main-box {
+    margin-top:5px;
+}
+#ex1Slider .slider-selection {
+    background: #bababa;}
+    .slide-v {float: left; width: 50%; padding: 5px; }
+    .slide-c {margin: 10px 0 0; }
+    .treegrid-1 .btn, .add-employee .btn, .main-box-header .btn {box-shadow:none; }
+
+    .table > thead { background: #dcdddf; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#dcdddf, #fff); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#dcdddf, #fff); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#dcdddf, #fff); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#dcdddf, #fff); /* Standard syntax */       }
+    .table > thead > tr > th, .table > tbody > tr > td {border: 0px solid #ddd;  font-size:12px;
+
+    }
+    .table > thead > tr > th, .table > thead > tr > td, .table > tbody > tr > th, .table > tbody > tr > td, .table > tfoot > tr > th, .table > tfoot > tr > td 
+    { /*padding:8px !important;*/ }
+
+

@@ -1,0 +1,4 @@
+﻿@{    
+    Layout = Request.Path.Equals("/") ? "~/Views/Shared/_NgLayout.cshtml" : null;
+    Session["Authenticate"] = Request.IsAuthenticated;
+}

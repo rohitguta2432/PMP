@@ -1,0 +1,67 @@
+﻿
+<div class="col-lg-12">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="main-box clearfix">
+                <header class="main-box-header clearfix">
+                    <h2 class="pull-left extra-padding">Client Detail</h2>
+                    <div class="btn-group pull-right">
+                        <div class="pull-left extra-padding" style="margin-right:5px">
+                            <p>Showing {{PageNum*10-9}}-{{PageNum*10}}</p>
+                        </div>
+                        <button type="button" style="margin-right:1px" ng-click="Previous()" class="btn btn-success"> <span class="glyphicon glyphicon-chevron-left"></span> </button>
+                        <button type="button" style="margin-right:1px" ng-click="Next()" class="btn btn-success"> <span class="glyphicon glyphicon-chevron-right"></span> </button>
+                    </div>
+                </header>
+                <div class="main-box-body clearfix">
+                    <div class="table-responsive clearfix">
+                        <table datatable="ng" dt-options="dtOptions" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Client Id</th>
+                                    <th>Client Name</th>
+                                    <th>Address</th>
+                                    <th>Company Phone Number</th>
+                                    <th>Client Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="Data in ClientMasterData ">
+                                    <td>
+                                       {{Data.ClientID}}
+                                       
+                                    </td>
+                                    <td>
+                                        {{Data.ClientName}}
+                                    </td>
+                                     <td>
+                                        {{Data.Address}}
+                                    </td>
+                                    <td>
+                                        {{Data.PhoneNumber}}
+                                    </td>
+                                    <td>
+                                        <span  ng-if="Data.IsActive==true">Active</span>
+                                        <span  ng-if="Data.IsActive==false">InActive</span>
+                                        <span  ng-if="Data.IsActive==null">Pending</span>
+                                    </td>
+                                    <td class="text-center" style="width: 15%;">
+                                        <a ui-sref="Platform.Portal.Client.Create({ClientID:Data.ClientID})" class="table-link">
+                                            <span class="fa-stack">
+                                                <i class="fa fa-square fa-stack-2x"></i>
+                                                <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+         <div class="main-box clearfix">
+               </div>
+         </div>
+    </div>
+</div>

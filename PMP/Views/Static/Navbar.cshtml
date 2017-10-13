@@ -1,0 +1,90 @@
+﻿
+@if (Session["Authenticate"] != null)
+{
+
+    if (Convert.ToBoolean(Session["Authenticate"]))
+    {
+        <header id="header-navbar" class="navbar">
+            <div class="container">
+                <a class="navbar-brand" id="logo" href="">
+                    <!-- PMP System-->
+                    <img class="normal-logo logo-white" alt="" src="~/Content/img/logo-sm.png">
+                </a>
+                <div class="clearfix">
+                    <button type="button" data-toggle="collapse" data-target=".navbar-ex1-collapse" class="navbar-toggle">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="fa fa-bars"></span>
+                    </button>
+                    <div class="nav-no-collapse navbar-left pull-left hidden-sm hidden-xs">
+                        <ul class="nav navbar-nav pull-left">
+                            <li>
+                                <a id="make-small-nav" class="btn">
+                                    <i class="fa fa-bars"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="header-nav" class="nav-no-collapse pull-right">
+                        <ul class="nav navbar-nav pull-right">
+                            <li class="mobile-search" id="searchbtn">
+                                <a class="btn">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                                <div class="drowdown-search">
+                                    <form role="search">
+                                        <div class="form-group">
+                                            <input id="unified-search" type="text" placeholder="Search..." ng-model="SearchKey" ng-change="DoSearch()" ng-disabled="IsStatePresent" class="form-control">
+                                            <i class="fa fa-search nav-search-icon"></i>
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>
+
+
+                            <li class="dropdown profile-dropdown">
+                                <a data-toggle="dropdown" class="dropdown-toggle cursor-pointer">
+                                    <img alt="" src="~/Content/img/samples/scarlet-159.png">
+                                    <span class="hidden-xs">Welcome {{LoggedInUser.FirstName}}</span> <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href=""><i class="fa fa-cog"></i>Settings</a></li>
+                                    <li><a ng-click="LogOut()"><i class="fa fa-power-off"></i>Logout</a></li>
+                                </ul>
+                            </li>
+                            <!--<li class="hidden-xxs">
+                                <a class="btn">
+                                    <i class="fa fa-power-off"></i>
+                                </a>
+                            </li>-->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+    }
+}
+<script>
+    //$('#searchbtn').click(function () {
+    //     $('#searchbtn').parent().addClass('active');
+    //});
+    //$('html').click(function (e) {
+    //    if (!$(e.target).parent().parent().hasClass('active')) {
+    //        $('#searchbtn').parent().removeClass('active');
+    //    }
+    //});
+    $('#searchbtn').click(function () {
+        $('#searchbtn').addClass('active');
+        $('#unified-search').focus();
+    });
+    $('html').click(function (e) {
+        if (!$(e.target).parent().parent().hasClass('active')) {
+            if (!(e.target.id == 'unified-search')) {
+                $('#searchbtn').removeClass('active');
+                $('#unified-search').val('');                
+            }
+        }
+    });
+</script>
+
+
+

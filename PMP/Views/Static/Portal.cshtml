@@ -1,0 +1,28 @@
+﻿
+@if (Session["Authenticate"]!=null)
+{
+    if (Convert.ToBoolean(Session["Authenticate"]))
+    {
+        <div class="row">
+            <div id="nav-col" ui-view="Sidenav">
+
+            </div>
+            <div id="content-wrapper">
+                <div class="row content-body" ui-view="Content">
+
+                </div>
+                <div class="fixed-footer" ui-view="Footer">
+
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <script type="text/javascript">
+            var pathname = window.location.pathname;
+            window.location.href = pathname;
+        </script>
+        
+    }
+}

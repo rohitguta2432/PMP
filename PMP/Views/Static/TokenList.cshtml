@@ -1,0 +1,80 @@
+﻿
+    <div class="col-lg-12">      
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="main-box clearfix">
+                    <header class="main-box-header clearfix">
+                        <h2 class="pull-left extra-padding">Token Detail</h2>
+                        <div class="btn-group pull-right">
+                            <div class="pull-left extra-padding" style="margin-right:5px">
+                                <p>Showing {{PageNum*10-9}}-{{PageNum*10}}</p>
+                            </div>
+                            <button type="button" style="margin-right:1px" ng-click="Previous()" class="btn btn-success"> <span class="glyphicon glyphicon-chevron-left"></span> </button>
+                            <button type="button" style="margin-right:1px" ng-click="Next()" class="btn btn-success"> <span class="glyphicon glyphicon-chevron-right"></span> </button> 
+                        </div>
+                    </header>
+                    <div class="main-box-body clearfix" ng-cloak>
+                        <div class="table-responsive clearfix">
+                            <table datatable="ng" dt-options="dtOptions" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Token</th>
+                                        <th>Date</th>                                        
+                                        <th>Status</th>
+                                        <th>Client</th>
+                                        <th>Contact Person</th>
+                                        <th>Last Action On</th>                                        
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="Data in TokenDataList ">
+                                        <td> 
+                                            <a>{{Data.TokenKey}}</a>
+                                        
+                                        </td>
+                                        <td>
+                                            {{Data.ContactDateFormat}}
+                                        </td>
+                                        @*<td>
+                                            <a href="#">{{Data.EmployeeMaster1_FirstName}}</a>
+                                        </td>*@
+                                        <td class="text-center">
+                                            <span class="label" ng-class="'label-'+Status_Label['1']" ng-if="Data.CurrentStatusID==null">Pending</span>
+                                            <span class="label" ng-class="'label-'+Status_Label[''+Data.CurrentStatusID]" ng-if="Data.CurrentStatusID!=null">
+                                                {{Data.CurrentStatusMaster_CurrentStatusDesc}}
+                                            </span>                                      
+                                        </td>
+                                        <td class="text-center">
+                                           {{Data.ClientMaster_ClientName}}
+                                        </td>
+                                        <td class="text-center">
+                                            {{Data.ContactPersonMaster_ContactPersonName}}
+                                        </td>
+                                        <td class="text-center">
+                                            {{Data.ModifiedDateFormat}}
+                                        </td>
+                                        @*<td class="text-center">
+
+                                        </td>*@
+                                        <td class="text-center" style="width: 15%;">
+                                            <a ui-sref="Platform.Portal.Token.Create({TokenID:Data.TokenID})" class="table-link">
+                                                <span class="fa-stack">
+                                                    <i class="fa fa-square fa-stack-2x"></i>
+                                                    <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
+                                                </span>
+                                            </a>
+                                        </td>
+                                    </tr>                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="main-box clearfix">
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,195 @@
+﻿<style>
+    .typeahead-section .custom-popup-wrapper {
+        position: absolute;
+        top: 79%;
+        left: 0;
+        z-index: 1000;
+        display: none;
+        background-color: #f9f9f9;
+        width: 100%;
+        border: 1px solid #f9f9f9;
+        border-radius: 2px;
+    }
+    
+    .typeahead-section .custom-popup-wrapper > .message {
+        padding: 10px 20px;
+        border-bottom: 1px solid #ddd;
+        color: #868686;
+    }
+    
+    .typeahead-section .custom-popup-wrapper > .dropdown-menu {
+       position: static;
+       float: none;
+       display: block;
+       min-width: 100%;
+       background-color: transparent;
+       border: none;
+       border-radius: 0;
+       box-shadow: none;          
+    }
+ 
+    .tooltip-f {
+        position: relative;
+        display: inline-block;
+    }
+
+    .tooltip-f .tooltiptext {
+        width: 150px;
+        background-color: #efdada;
+        font-size: 10px;
+        color: #ce1818;
+        text-align: center;
+        border-radius: 2px;
+        padding: 5px 0;
+        margin-top: 2.3px;
+        margin-left: 150px;
+        position: absolute;
+        z-index: 1;
+    }
+
+    .tooltip-f:hover .tooltiptext {
+        visibility: visible;
+    }
+
+    .tooltip-f .tooltiptext::after {
+        content: " ";
+        position: absolute;
+        bottom: 90%; /* At the top of the tooltip */
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent #efdada transparent;
+    }
+
+    .error-r {
+        padding-right: 40px;
+    }
+
+    .success-a {
+        padding-right: 40px;
+    }
+
+    .intl-tel-input {
+        display: table-cell;
+    }
+
+    .intl-tel-input .flag-container {
+        z-index: 4;
+    }
+    
+    .input-group .intl-tel-input .form-control {
+      border-top-left-radius: 4px;
+      border-top-right-radius: 0;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 0;
+    }
+
+</style>
+
+<div class="col-lg-12">
+   <xdiv class="row">
+        <div class="col-lg-12">
+            <div class="main-box clearfix">
+                <header class="main-box-header clearfix">
+                    <h2 class="pull-left">Create Client</h2>
+                </header>
+                <div class="main-box-body clearfix">
+                    <div class="clearfix">
+                        <form name="ClientCreate" ng-submit="SubmitClientDetails()">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div class="col-md-8">
+
+                                        <div class="form-group col-md-6 tooltip-f">
+                                            <label>Client Name</label>
+                                            <input type="text" id="ClientName" name="ClientName" placeholder="Client Name" ng-model="ClientModel.ClientName" class="form-control" ng-maxlength="50" required />
+                                            <span ng-show="ClientCreate.ClientName.$dirty && ClientCreate.ClientName.$error.required" class="glyphicon glyphicon-remove form-control-feedback error-r "></span>
+                                            <span class="tooltiptext" ng-show="ClientCreate.ClientName.$dirty && ClientCreate.ClientName.$error.required">This Field is Required</span>
+                                            <span ng-show="!ClientCreate.ClientName.$error.required" class="glyphicon glyphicon-ok form-control-feedback success-a"></span>
+                                        </div>
+
+                                        <div class="form-group col-md-6 tooltip-f">
+                                            <label>Company Phone Number</label>
+                                            <input type="text" ng-intl-tel-input class="form-control" name="ClientPhoneNumber" id="ClientPhoneNumber" placeholder="Phone Number" ng-model="ClientModel.PhoneNumber" ng-minlength="10" ng-maxlength="10" required />
+                                            <span class="tooltiptext" ng-show="((ClientCreate.ClientPhoneNumber.$error.required || ClientCreate.ClientPhoneNumber.$error.number) && ClientCreate.ClientPhoneNumber.$dirty)">
+                                                Valid phone number is required
+                                            </span>
+                                            <span class="tooltiptext" ng-show="((ClientCreate.ClientPhoneNumber.$error.minlength || ClientCreate.ClientPhoneNumber.$error.maxlength) && ClientCreate.ClientPhoneNumber.$dirty) ">
+                                                Phone number should be 10 digits
+                                            </span>
+                                        </div>
+
+                                        <div class="form-group col-md-6 tooltip-f">
+                                            <label>Email</label>
+                                            <input type="email" class="form-control" placeholder="Email Number" id="email" name="email" ng-model="ClientModel.EmailID" required />
+                                            <span class="tooltiptext" ng-show="ClientCreate.email.$dirty && ClientCreate.email.$error.email"> Email is not Valid</span>
+                                            <span ng-show="ClientCreate.email.$dirty && !ClientCreate.email.$error.email" class="glyphicon glyphicon-ok form-control-feedback success-a"></span>
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            <label>Fax</label>
+                                            <input type="text" class="form-control" placeholder="Fax Number" ng-model="ClientModel.Fax" />
+                                        </div>
+
+                                        
+                                        </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group col-md-12 tooltip-f" style="padding-left: 0 !important;">
+                                            <label> Address </label>
+                                            <textarea type="text" id="Address" name="Address" class="form-control textarea" style="height:85px;" ng-model="ClientModel.Address" placeholder="Address" ng-maxlength="50" required />
+                                            <span ng-show="ClientCreate.Address.$dirty && ClientCreate.Address.$error.required" class="glyphicon glyphicon-remove form-control-feedback error-r "></span>
+                                            <span class="tooltiptext" ng-show="ClientCreate.Address.$dirty && ClientCreate.Address.$error.required">This Field Is Required</span>
+                                            <span class="tooltiptext"  ng-show="ClientCreate.Address.$error.maxlength">maximum 50 Chars Allowed</span>
+                                            <span  ng-show="!ClientCreate.Address.$error.maxlength && !ClientCreate.Address.$error.required" class="glyphicon glyphicon-ok form-control-feedback success-a"></span>
+                                        </div>
+                                       </div>
+
+                                   
+
+                                        <div style="clear:both; height:10px;"></div>
+
+                                        <div class="form-group">
+                                            <div class="btn-block-d">
+                                                <button type="button" ng-show="ShowUpdate" ng-click="UpdateClientInfo()" ng-disabled="ClientCreate.$invalid" class="btn btn-primary"> Update </button>
+                                                <button type="button" ng-show="ShowAccept" ng-click="AcceptClientInfo()" ng-disabled="ClientCreate.$invalid" class="btn btn-primary"> Accept </button>
+                                                <button type="button" ng-show="ShowReject" ng-click="RejectClientInfo()"  class="btn btn-primary"> Reject </button>
+                                                <button type="submit" ng-show="ShowCreate" class="btn btn-primary" ng-disabled="ClientCreate.$invalid" value="submit"> Create Client</button>
+                                                <button type="button" class="btn btn-success" ng-show="ShowReset" ng-click="ResetClientInfo()"> Reset</button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                               </div>
+                       </form>
+                    </div>
+                </div>
+            </div>
+        </div><script type="text/ng-template" id="customPopupTemplate.html">
+    <div class="custom-popup-wrapper"
+         ng-style="{top: position().top+'px', left: position().left+'px'}"
+         style="display: block;"
+         ng-show="isOpen() && !moveInProgress"
+         aria-hidden="{{!isOpen()}}">
+        <p class="message">Select Client  . . .</p>
+
+        <ul class="dropdown-menu" role="listbox">
+            <li class="uib-typeahead-match" ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }"
+                ng-mouseenter="selectActive($index)" ng-click="selectMatch($index)" role="option" id="{{::match.id}}">
+                <div uib-typeahead-match index="$index" match="match" query="query" template-url="templateUrl"></div>
+            </li>
+        </ul>
+    </div>
+</script>
+
+<script type="text/ng-template" id="customTemplate.html">
+    <a>`
+        <img ng-src="http://upload.wikimedia.org/wikipedia/commons/thumb/{{match.model.flag}}" width="16">
+        <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
+    </a>
+</script>
+       
+    </xdiv>
+</div>
+

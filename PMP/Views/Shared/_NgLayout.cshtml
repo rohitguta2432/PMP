@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html ng-app="Portal">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Main</title>    
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/css") 
+    <style>
+        body{
+            overflow-y:hidden;
+        }
+        caption, th {
+            text-align: center;
+        }
+
+        .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+            border: 1px solid #ddd;
+            padding: 0;
+        }
+
+        .table tr > th {
+            background: #f8f8f8;
+            border: 0px solid #ddd;
+        }
+
+        .table > tbody > tr > td {
+            border-top: 1px solid #ddd !important;
+        }
+
+        .table tr > td {
+            border: 0px solid #ddd;
+            text-align: center;
+        }
+
+        .table-responsive .table  tr th {
+            padding: 10px !important;
+        }
+
+    </style>
+    <style>
+        #ex1Slider .slider-selection {
+            background: #bababa;
+        }
+    </style>
+</head>
+
+<body class="fixed-header pace-done theme-white">
+
+    @Html.Partial("_Platform")
+
+    @RenderBody()    
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/custom")
+    @Scripts.Render("~/bundles/bootstrap")  
+
+    <script>
+        $(function ($) {
+
+            $('#datepickerDate').datepicker({
+                format: 'mm-dd-yyyy'
+            });
+           
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+             // With JQuery
+            $('#ex1').slider({
+                formatter: function (value) {
+                    return 'Current value: ' + value;
+                }
+            });
+
+            $('#ex2').slider({
+                formatter: function (value) {
+                    return 'Current value: ' + value;
+                }
+            });
+
+            $('#ex3').slider({
+                formatter: function (value) {
+                    return 'Current value: ' + value;
+                }
+            });
+
+            // Without JQuery
+            //var slider = new Slider('#ex1', {
+            //    formatter: function (value) {
+            //        return 'Current value: ' + value;
+            //    }
+            //});
+
+
+        });
+    </script>
+      
+
+    @Scripts.Render("~/bundles/navbar")
+    @Scripts.Render("~/bundles/angular")   
+    @Scripts.Render("~/bundles/scrollbars")
+    @Scripts.Render("~/bundles/portal")  
+</body>
+</html>

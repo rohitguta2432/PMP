@@ -1,0 +1,32 @@
+﻿
+    <section class="col-left-nano" id="col-left">
+        <div class="col-left-nano-content" id="col-left-inner">
+            <div id="sidebar-nav" class="collapse navbar-collapse navbar-ex1-collapse">                
+                    <ul class="nav nav-pills nav-stacked">      
+                        <li class="active">
+                            <a Ui-sref="Platform.Portal.Token">
+                                <i class="fa fa-dashboard"></i>
+                                <span>Home</span>
+
+                            </a>
+                        </li>                                      
+                           <li class="active" ng-repeat="Block in Menu | filter:{PageRulesMaster_ParentPage: 0 }">
+                                <a class="dropdown-toggle cursor-pointer">
+                                    <i class="fa fa-table"></i>
+                                    <span>{{Block.PageRulesMaster_PageDesc}}</span>
+                                    <i class="fa fa-chevron-circle-right drop-icon"></i>
+                                </a>
+
+                                <ul class="submenu">
+                                    <li ng-repeat="SubMenu in Menu | filter: {PageRulesMaster_ParentPage: Block.PageID}">
+                                        <a ui-sref="{{SubMenu.PageRulesMaster_PageState}}">
+                                            <i class="fa fa-table"></i>
+                                            {{SubMenu.PageRulesMaster_PageDesc}}
+                                        </a>
+                                    </li>                             
+                                </ul>
+                            </li>
+                    </ul>
+              </div>
+        </div>
+    </section>
